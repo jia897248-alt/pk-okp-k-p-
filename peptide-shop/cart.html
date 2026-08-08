@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Cart — PeptideMart</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main>
+    <div class="wrap" style="padding-top:28px">
+      <div class="breadcrumb"><a href="index.html">Home</a> / <b>Cart</b></div>
+
+      <div class="shipbar" id="shipTop" style="display:none">
+        <div class="txt" id="shipTxt"></div>
+        <div class="track"><i id="shipFill" style="width:0%"></i></div>
+      </div>
+
+      <div class="cart-layout">
+        <div>
+          <div class="cart-items" id="items"></div>
+          <div class="gift-note show" id="giftNote">💬 <b>量大价优 · 按量议价</b> — 采购越多价格越给力。把数量发给客服，给你最优成交价。</div>
+          <div class="vip-note" id="vipNote">🎁 <b>New customer:</b> code <b>NEW95</b> = 5% OFF (95折) · <b>EU / US / SE Asia:</b> extra 5% with <b>EURASIA5</b> · 🚚 Free shipping over <b>$666</b>.</div>
+        </div>
+
+        <div class="summary" id="summary">
+          <h3>Order summary</h3>
+          <div id="sumRows"></div>
+          <div class="coupon-row">
+            <input id="coupon" placeholder="Coupon code (try NEW95)">
+            <button class="btn btn-ghost" id="couponBtn">Apply</button>
+          </div>
+          <div class="small muted" id="couponMsg" style="margin-bottom:12px"></div>
+          <div class="milestone" id="milestones"></div>
+          <button class="btn btn-wa btn-lg btn-block" id="checkoutWa" style="margin-top:16px">✆ Checkout on WhatsApp</button>
+          <button class="btn btn-ghost btn-block" id="checkoutEmail" style="margin-top:10px">✉️ Reseller / bulk inquiry</button>
+          <a href="products.html" class="btn btn-ghost btn-block" style="margin-top:10px">← Continue shopping</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/page-cart.js"></script>
+</body>
+</html>

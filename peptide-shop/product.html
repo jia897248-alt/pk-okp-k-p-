@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product — PeptideMart</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main>
+    <div class="wrap" style="padding-top:10px">
+      <div class="breadcrumb"><a href="index.html">Home</a> / <a href="products.html">Shop</a> / <b id="crumb"></b></div>
+
+      <div class="pdetail">
+        <div class="pgallery" id="gallery">🧪</div>
+        <div class="pinfo">
+          <div class="cat" id="pcat"></div>
+          <h1 id="pname"></h1>
+          <div class="spec-line" id="pspec"></div>
+          <div class="rate" id="prate"></div>
+          <div class="price-row">
+            <span class="now" id="pnow"></span>
+            <span class="was" id="pold"></span>
+            <span class="save">−8.8% today</span>
+          </div>
+          <div class="hook-sub" id="phook"></div>
+          <div class="tier-card" style="margin:14px 0 4px">
+            <h4>💬 Bigger order = better price</h4>
+            <div class="sub">1 box is already wholesale. Tell us your quantity and get our best real deal price.</div>
+            <button class="btn btn-wa btn-block" id="waPrice">✆ Tap chat for your real deal price</button>
+          </div>
+          <div class="qty-row">
+            <div class="qty">
+              <button id="minus">−</button>
+              <input id="qty" type="number" min="1" max="99" value="1">
+              <button id="plus">+</button>
+            </div>
+            <span class="small muted">box(es) × 10 vials</span>
+          </div>
+          <div class="buy-row">
+            <button class="btn btn-primary btn-lg" id="addBtn">🛒 Add to cart</button>
+            <button class="btn btn-wa btn-lg" id="waBtn">✆ Order on WhatsApp</button>
+          </div>
+          <div class="stock-line small" id="pstock"></div>
+          <div class="stockbar" id="pstockbar" style="margin-bottom:16px"><i style="width:50%"></i></div>
+          <div class="trust-line">
+            <span>✔ <b>In stock</b></span>
+            <span>✔ <b>COA</b> available</span>
+            <span>✔ Discreet shipping</span>
+            <span>✔ 24/7 WhatsApp</span>
+          </div>
+        </div>
+      </div>
+
+      <section id="pquote" style="padding:6px 0 0">
+        <div class="pquote">
+          <div class="q">“I weighed 94 kg, now I'm <b>69 kg</b> — it looks like I'm a different person.”</div>
+          <div class="m">🇵🇭 Verified repeat customer · Manila · <span class="dim">lost 25 kg on our peptides</span></div>
+        </div>
+      </section>
+
+      <section id="recon" style="padding:40px 0 10px">
+        <div class="recon-card" id="reconCard"></div>
+      </section>
+
+      <section id="related" style="padding:40px 0 10px">
+        <div class="sec-head"><div><h2>You may also like</h2></div></div>
+        <div class="grid cols3" id="relGrid"></div>
+      </section>
+    </div>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/page-product.js"></script>
+</body>
+</html>
