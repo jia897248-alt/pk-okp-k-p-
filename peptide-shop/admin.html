@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PeptideMart — Admin Dashboard</title>
+  <meta name="robots" content="noindex, nofollow">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --bg:#0b0f14;--bg2:#0e141b;--panel:#111820;--card:#141d28;
+      --line:#223042;--line2:#2c3d52;
+      --text:#e8eef5;--muted:#8fa1b3;--dim:#5b6b7c;
+      --accent:#22c55e;--accent-soft:rgba(34,197,94,.14);
+      --cyan:#22d3ee;--gold:#f5a623;--red:#ef4444;
+      --radius:14px;--shadow:0 10px 30px rgba(0,0,0,.35);
+      --font:'Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;font-size:14.5px}
+    .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+
+    header{position:sticky;top:0;z-index:50;background:rgba(11,15,20,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+    .head{display:flex;align-items:center;gap:14px;padding:14px 0}
+    .logo{font-weight:800;font-size:18px}
+    .logo .mark{display:inline-block;width:28px;height:28px;line-height:28px;text-align:center;border-radius:8px;background:linear-gradient(135deg,var(--accent),#0ea5e9);margin-right:8px;font-size:14px}
+    .head .tag{background:var(--accent-soft);color:var(--accent);font-size:11px;font-weight:800;border-radius:6px;padding:3px 8px;text-transform:uppercase;letter-spacing:.5px}
+    .head .right{margin-left:auto;display:flex;align-items:center;gap:10px}
+    .btn{display:inline-flex;align-items:center;gap:6px;font-weight:700;border-radius:9px;border:1px solid var(--line2);padding:8px 13px;font-size:12.5px;background:var(--card);color:var(--text);cursor:pointer;transition:.15s}
+    .btn:hover{border-color:var(--accent);color:var(--accent)}
+    .btn-primary{background:var(--accent);color:#06240f;border:none}
+    .btn-primary:hover{filter:brightness(1.1)}
+
+    main{padding:26px 0 60px}
+    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:24px}
+    .stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+    .stat .l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;font-weight:700}
+    .stat .v{font-size:30px;font-weight:800;margin-top:4px}
+    .stat .s{font-size:12px;color:var(--muted);margin-top:2px}
+    .stat .v.green{color:var(--accent)}.stat .v.cyan{color:var(--cyan)}.stat .v.gold{color:var(--gold)}.stat .v.red{color:var(--red)}
+
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+    .card h3{font-size:15px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+    .card h3 .dot{width:8px;height:8px;border-radius:50%;background:var(--cyan)}
+    .card h3 .hint{margin-left:auto;font-size:11px;color:var(--dim);font-weight:500}
+
+    .bar-row{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+    .bar-row .name{width:110px;font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .bar-row .track{flex:1;height:16px;background:var(--bg2);border-radius:6px;overflow:hidden}
+    .bar-row .fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--cyan));border-radius:6px;min-width:2px;transition:width .4s}
+    .bar-row .cnt{width:60px;text-align:right;font-size:12.5px;font-weight:700;font-variant-numeric:tabular-nums}
+
+    .day-chart{display:flex;align-items:flex-end;gap:4px;height:130px;margin-top:6px}
+    .day-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+    .day-col .bar{width:100%;background:linear-gradient(180deg,var(--cyan),#0e7490);border-radius:4px 4px 0 0;min-height:2px}
+    .day-col .lab{font-size:10px;color:var(--dim)}
+
+    table{width:100%;border-collapse:collapse;font-size:13px}
+    th{text-align:left;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px;padding:8px;border-bottom:1px solid var(--line)}
+    td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+    tr:last-child td{border-bottom:none}
+    .rating{color:var(--gold);letter-spacing:2px}
+    .badge{display:inline-block;font-size:10px;font-weight:800;border-radius:5px;padding:2px 7px;text-transform:uppercase;letter-spacing:.4px}
+    .badge.new{background:rgba(34,197,94,.15);color:#4ade80}
+    .badge.bug{background:rgba(239,68,68,.15);color:#f87171}
+    .badge.product{background:rgba(34,211,238,.15);color:#22d3ee}
+    .badge.shipping{background:rgba(245,166,35,.15);color:#fbbf24}
+    .badge.general,.badge.suggestion{background:rgba(143,161,179,.15);color:#94a3b8}
+    .fb-empty{color:var(--dim);text-align:center;padding:30px 0;font-size:13px}
+
+    .tips{display:flex;flex-direction:column;gap:10px}
+    .tip{display:flex;gap:10px;align-items:flex-start;background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:11px 13px}
+    .tip .ic{font-size:16px;line-height:1.4}
+    .tip b{font-size:13px;display:block}
+    .tip p{font-size:12.5px;color:var(--muted);margin-top:1px}
+    .tip .sev{margin-left:auto;font-size:10px;font-weight:800;border-radius:5px;padding:2px 7px;white-space:nowrap}
+    .sev.high{background:rgba(239,68,68,.18);color:#f87171}
+    .sev.med{background:rgba(245,166,35,.18);color:#fbbf24}
+    .sev.low{background:rgba(34,211,238,.18);color:#22d3ee}
+
+    .error-box{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.4);color:#fca5a5;border-radius:10px;padding:14px;margin-bottom:16px;font-size:13px}
+    .loading{color:var(--dim);text-align:center;padding:40px 0;font-size:13.5px}
+
+    @media (max-width:820px){.grid2{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap head">
+      <div class="logo"><span class="mark">📊</span>PeptideMart Admin</div>
+      <span class="tag">Dashboard</span>
+      <div class="right">
+        <button class="btn" id="range7">7d</button>
+        <button class="btn" id="range14">14d</button>
+        <button class="btn btn-primary" id="range30">30d</button>
+        <a class="btn" href="/">← Store</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <div class="error-box hide" id="errorBox"></div>
+
+      <div class="login-box" id="loginBox">
+        <div style="font-size:22px;margin-bottom:6px">🔒</div>
+        <h3 style="margin-bottom:4px">Admin access required</h3>
+        <div style="color:var(--muted);font-size:13px;margin-bottom:16px">Enter the admin PIN to view the dashboard.</div>
+        <input type="password" id="pinInput" placeholder="Admin PIN" style="width:100%;background:var(--bg2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:11px 13px;font-size:14px">
+        <button class="btn btn-primary" id="pinGo" style="width:100%;margin-top:12px;justify-content:center">Unlock dashboard</button>
+        <div class="fb-empty" id="pinErr" style="color:var(--red);font-size:12.5px;margin-top:8px"></div>
+      </div>
+
+      <div id="dash" class="hide">
+      <div class="stats">
+        <div class="stat"><div class="l">Visits (30d)</div><div class="v green" id="statVisits">–</div><div class="s">Web Analytics page loads</div></div>
+        <div class="stat"><div class="l">Today</div><div class="v cyan" id="statToday">–</div><div class="s">Page loads today</div></div>
+        <div class="stat"><div class="l">Countries</div><div class="v gold" id="statCountries">–</div><div class="s">Where visitors come from</div></div>
+        <div class="stat"><div class="l">Feedback</div><div class="v red" id="statFeedback">–</div><div class="s">User submissions</div></div>
+      </div>
+
+      <div class="grid2">
+        <div class="card">
+          <h3><span class="dot"></span>Traffic by day <span class="hint" id="rangeLabel">last 30 days</span></h3>
+          <div class="day-chart" id="dayChart"><div class="loading">Loading…</div></div>
+        </div>
+        <div class="card">
+          <h3><span class="dot"></span>Traffic by country <span class="hint">visitor origin</span></h3>
+          <div id="countryBars"><div class="loading">Loading…</div></div>
+        </div>
+
+        <div class="card">
+          <h3><span class="dot"></span>Optimization suggestions <span class="hint">auto from data</span></h3>
+          <div class="tips" id="tips"><div class="loading">Loading…</div></div>
+        </div>
+        <div class="card">
+          <h3><span class="dot"></span>User feedback <span class="hint">latest first</span></h3>
+          <div id="feedbackList"><div class="loading">Loading…</div></div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    var DAYS = 30;
+    var trafficData = null;
+
+    function $(id){return document.getElementById(id);}
+
+    async function loadTraffic(days) {
+      DAYS = days;
+      var r = await fetch("/api/traffic?days=" + days);
+      var d = await r.json();
+      if (!d.ok) throw new Error(d.error || "traffic failed");
+      trafficData = d;
+      renderTraffic(d);
+      renderTips(d);
+    }
+
+    async function loadFeedback() {
+      var r = await fetch("/api/feedback");
+      var d = await r.json();
+      if (!d.ok) throw new Error(d.error || "feedback failed");
+      renderFeedback(d.records || []);
+    }
+
+    function renderTraffic(d) {
+      var byDay = d.byDay || [];
+      var byCountry = d.byCountry || [];
+      $("statVisits").textContent = d.total.toLocaleString();
+      var today = (byDay[byDay.length - 1] || {}).count || 0;
+      $("statToday").textContent = today.toLocaleString();
+      $("statCountries").textContent = byCountry.length;
+      $("rangeLabel").textContent = "last " + d.days + " days";
+
+      // day chart
+      var max = Math.max(1, ...byDay.map(function(x){return x.count;}));
+      var chart = $("dayChart");
+      if (!byDay.length) { chart.innerHTML = '<div class="fb-empty">No traffic yet. Share your link to start collecting.</div>'; return; }
+      chart.innerHTML = "";
+      byDay.forEach(function(x){
+        var col = document.createElement("div"); col.className = "day-col";
+        var bar = document.createElement("div"); bar.className = "bar";
+        bar.style.height = Math.max(2, (x.count / max) * 100) + "px";
+        bar.title = x.date + ": " + x.count;
+        var lab = document.createElement("div"); lab.className = "lab";
+        lab.textContent = x.date.slice(5);
+        col.appendChild(bar); col.appendChild(lab);
+        chart.appendChild(col);
+      });
+
+      // country bars
+      var maxC = Math.max(1, ...byCountry.map(function(x){return x.count;}));
+      var cb = $("countryBars");
+      if (!byCountry.length) { cb.innerHTML = '<div class="fb-empty">No country data yet.</div>'; return; }
+      cb.innerHTML = "";
+      byCountry.slice(0, 10).forEach(function(x){
+        var row = document.createElement("div"); row.className = "bar-row";
+        var name = document.createElement("div"); name.className = "name"; name.textContent = x.country; name.title = x.country;
+        var track = document.createElement("div"); track.className = "track";
+        var fill = document.createElement("div"); fill.className = "fill"; fill.style.width = (x.count / maxC * 100) + "%";
+        var cnt = document.createElement("div"); cnt.className = "cnt"; cnt.textContent = x.count.toLocaleString();
+        track.appendChild(fill);
+        row.appendChild(name); row.appendChild(track); row.appendChild(cnt);
+        cb.appendChild(row);
+      });
+    }
+
+    function renderTips(d) {
+      var tips = [];
+      var byCountry = d.byCountry || [];
+      var byDay = d.byDay || [];
+      var total = d.total || 0;
+      var countries = byCountry.length;
+
+      // country concentration
+      if (byCountry.length >= 1) {
+        var top = byCountry[0];
+        var pct = Math.round(top.count / Math.max(1, total) * 100);
+        if (pct >= 60) tips.push({ sev:"high", ic:"🌍", t:"Traffic heavily concentrated in " + top.country + " (" + pct + "%)", p:"Diversify your audience. Run ads or partnerships targeting other regions to reduce single-market risk.", });
+      }
+      if (countries >= 5) tips.push({ sev:"low", ic:"🌐", t:"Good international reach — " + countries + " countries", p:"Consider local-language product pages and localized payment methods for your top markets.", });
+      else if (countries >= 1) tips.push({ sev:"med", ic:"🌐", t:"Traffic from " + countries + " countries only", p:"Most orders come through WhatsApp. Expand reach with region-specific landing pages.", });
+
+      // trend
+      if (byDay.length >= 7) {
+        var first = byDay.slice(0, 7).reduce(function(a,x){return a+x.count;}, 0);
+        var last = byDay.slice(-7).reduce(function(a,x){return a+x.count;}, 0);
+        if (first > 0 && last > first * 1.2) tips.push({ sev:"low", ic:"📈", t:"Traffic trending up", p:"+" + Math.round((last-first)/first*100) + "% in the last week vs the previous one. Keep posting and scaling what works.", });
+        else if (first > 0 && last < first * 0.7) tips.push({ sev:"high", ic:"📉", t:"Traffic trending down", p:"Down " + Math.round((first-last)/first*100) + "% week-over-week. Refresh your product pages and re-share your link.", });
+      }
+
+      // low total
+      if (total > 0 && total < 200) tips.push({ sev:"high", ic:"🚀", t:"Low traffic volume (" + total + " visits / " + d.days + " days)", p:"Focus on driving the first real visitors: share the WhatsApp catalog link in communities, run Meta/TikTok ads, or post comparison content.", });
+      if (total === 0) tips.push({ sev:"high", ic:"🛑", t:"No traffic detected yet", p:"Web Analytics was just enabled. Share your link (rxxxxx.cc.cd) with customers and check back in a few hours.", });
+
+      // conversion funnel
+      tips.push({ sev:"med", ic:"🛒", t:"Check your conversion funnel", p:"Visitors land on the homepage but orders happen on WhatsApp. Consider an exit popup with your WhatsApp link to catch abandoning shoppers.", });
+      tips.push({ sev:"low", ic:"🔍", t:"Verify your top products", p:"Use the product with the most visits as your homepage hero. Track product page hits to see what customers care about.", });
+
+      var el = $("tips");
+      if (!tips.length) { el.innerHTML = '<div class="fb-empty">Collect more data to see suggestions.</div>'; return; }
+      el.innerHTML = "";
+      tips.slice(0, 6).forEach(function(t){
+        var div = document.createElement("div"); div.className = "tip";
+        div.innerHTML = '<div class="ic">' + t.ic + '</div><div><b>' + t.t + '</b><p>' + t.p + '</p></div><span class="sev ' + t.sev + '">' + t.sev + '</span>';
+        el.appendChild(div);
+      });
+    }
+
+    function renderFeedback(records) {
+      $("statFeedback").textContent = records.length.toLocaleString();
+      var el = $("feedbackList");
+      if (!records.length) { el.innerHTML = '<div class="fb-empty">No feedback yet. The 💬 Feedback button on the site lets customers send feedback here.</div>'; return; }
+      el.innerHTML = "";
+      var table = document.createElement("table");
+      table.innerHTML = "<tr><th>Date</th><th>Type</th><th>Rating</th><th>Message</th></tr>";
+      records.slice(0, 20).forEach(function(r){
+        var tr = document.createElement("tr");
+        var d = new Date(r.created_at);
+        var date = d.toLocaleDateString("en-US", {month:"short", day:"numeric"}) + " " + d.toLocaleTimeString("en-US", {hour:"2-digit", minute:"2-digit"});
+        tr.innerHTML = '<td style="white-space:nowrap;font-size:12px">' + date + '</td>' +
+          '<td><span class="badge ' + (r.type || "general") + '">' + (r.type || "general") + '</span></td>' +
+          '<td class="rating">' + "★".repeat(r.rating || 5) + '</td>' +
+          '<td>' + escapeHtml(r.message) + (r.name ? '<div style="color:var(--dim);font-size:11px;margin-top:2px">— ' + escapeHtml(r.name) + (r.email ? " · " + escapeHtml(r.email) : "") + '</div>' : '') + '</td>';
+        table.appendChild(tr);
+      });
+      el.appendChild(table);
+    }
+
+    function escapeHtml(s){
+      return (s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+    }
+
+    function showError(msg){
+      var el = $("errorBox");
+      el.textContent = msg;
+      el.classList.remove("hide");
+    }
+
+    function init() {
+      $("range7").onclick = function(){ setRange(7); };
+      $("range14").onclick = function(){ setRange(14); };
+      $("range30").onclick = function(){ setRange(30); };
+      $("pinGo").onclick = function(){ tryUnlock(); };
+      $("pinInput").onkeydown = function(e){ if (e.key === "Enter") tryUnlock(); };
+
+      var saved = localStorage.getItem("pm_pin");
+      if (saved) { unlock(saved); }
+    }
+
+    function tryUnlock() {
+      unlock($("pinInput").value.trim());
+    }
+
+    function unlock(pin) {
+      if (!pin) { $("pinErr").textContent = "Please enter a PIN."; return; }
+      fetch("/api/feedback?pin=" + encodeURIComponent(pin)).then(function(r){
+        return r.json();
+      }).then(function(d){
+        if (d.ok) {
+          localStorage.setItem("pm_pin", pin);
+          $("loginBox").classList.add("hide");
+          $("dash").classList.remove("hide");
+          Promise.all([
+            loadTraffic(DAYS),
+            loadFeedback().catch(function(e){ $("statFeedback").textContent = "–"; return null; })
+          ]).catch(function(e){ showError("Could not load dashboard data: " + (e.message || e)); });
+        } else {
+          $("pinErr").textContent = "Wrong PIN. Try again.";
+        }
+      }).catch(function(e){
+        $("pinErr").textContent = "Network error: " + (e.message || e);
+      });
+    }
+
+    function setRange(days) {
+      [7,14,30].forEach(function(n){
+        $("range" + n).className = n === days ? "btn btn-primary" : "btn";
+      });
+      loadTraffic(days).catch(function(e){ showError("Could not load traffic: " + (e.message || e)); });
+    }
+
+    init();
+  </script>
+</body>
+</html>
