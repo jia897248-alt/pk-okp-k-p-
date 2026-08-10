@@ -16,7 +16,7 @@
     for (let i = 1; i <= 9; i++) {
       shots.push({ img: IMG + "shipin_" + pad(i) + ".jpg", kind: "video" });
     }
-    // 补竖版素材图 (sucai 中尺寸偏竖版的多为照片), 凑到 16 张
+    // 补竖版素材图 (sucai 中尺寸偏竖版的多为照片), 共 18 张
     const tall = ["01", "03", "07", "10", "13", "17", "19", "20", "22"];
     for (const n of tall) {
       shots.push({ img: IMG + "sucai_" + n + ".jpg", kind: "photo" });
