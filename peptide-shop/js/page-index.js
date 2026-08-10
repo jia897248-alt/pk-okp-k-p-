@@ -15,18 +15,6 @@
 
   const byId = PP.byId;
 
-  function renderTop() {
-    const list = window.PRODUCTS.filter(p => p.best || p.flash).slice(0, 4);
-    PP.el("flashList").innerHTML = list.length ? list.map(p => {
-      const c = PP.cur();
-      return `<div class="flash-item">
-        <div>${PP.emojiFor(p.name)}</div>
-        <div><div class="name"><a href="product.html?id=${p.id}">${p.name}</a></div><div class="spec">${p.spec}</div></div>
-        <div class="price"><div class="now">${PP.fmt(PP.rate(p, c), c)}</div><div class="was">${PP.fmt(p.retail, c)}</div></div>
-      </div>`;
-    }).join("") : '<div class="muted small">Loading…</div>';
-  }
-
   function renderCats() {
     PP.el("catGrid").innerHTML = CATS.map(c => {
       const n = window.PRODUCTS.filter(p => p.cat === c.id).length;
@@ -88,9 +76,9 @@
   window.Page = {
     init() {
       PP.qsa("[data-nav='home']").forEach(a => a.classList.add("on"));
-      renderTop(); renderCats(); renderBundles(); renderBest(); bindFAQ(); bindReseller();
+      renderCats(); renderBundles(); renderBest(); bindFAQ(); bindReseller();
       if (window.Showcase) window.Showcase.init();
-      document.addEventListener("pp:currency", () => { renderTop(); renderBundles(); renderBest(); });
+      document.addEventListener("pp:currency", () => { renderBundles(); renderBest(); });
     }
   };
 })();
