@@ -264,7 +264,7 @@
         </div>
       </div>
     </header>
-    <a class="wa-float" id="waFloat" target="_blank" rel="noopener" title="Order on WhatsApp"><span class="pulse"></span>✆</a>`;
+    <a class="wa-float" id="waFloat" target="_blank" rel="noopener" title="Chat on WhatsApp"><span class="pulse"></span><span class="wa-ic">✆</span><span class="wa-txt"><b>Chat With Our Specialist</b><i>Available 24/7</i></span></a>`;
     document.body.insertAdjacentHTML("afterbegin", nav);
     document.body.insertAdjacentHTML("beforeend", footerHTML());
     document.body.insertAdjacentHTML("beforeend", '<div class="toast-box"></div>');

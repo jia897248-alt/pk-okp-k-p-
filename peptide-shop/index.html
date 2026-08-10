@@ -9,28 +9,65 @@
 </head>
 <body>
   <main>
-    <section class="hero">
+    <section class="hero hero-tri">
       <div class="wrap">
-        <div>
+        <!-- 左侧：产品实拍展示流 -->
+        <div class="hcol hcol-left">
+          <div class="glass-panel">
+            <div class="panel-head">
+              <div class="ph-title"><span class="ph-ic">📦</span> Product Showcase</div>
+              <div class="ph-sub">Real products · lab batch verified</div>
+            </div>
+            <div class="showreel" id="showreel">
+              <div class="showreel-track" id="showreelTrack"><div class="muted small">Loading…</div></div>
+            </div>
+            <a class="btn btn-wa btn-block wa-cta" id="showreelCta" target="_blank" rel="noopener">
+              <span>🖼️ View More Product Photos &amp; Videos</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 中间：品牌 Hero -->
+        <div class="hcol hcol-center">
           <span class="tag flash">🔬 COA Tested · Direct from Lab</span>
-          <h1>Real Wholesale Prices — <span class="grad">1 Box Included</span></h1>
-          <p class="lead">180+ peptides at lab-direct prices. <b>1 box is already wholesale</b>, bigger orders = better price. New customers get 5% OFF (95折), free shipping over $666, and you order in 30 seconds on WhatsApp.</p>
+          <h1>Global <span class="grad">Peptide</span> Biotechnology</h1>
+          <p class="lead">180+ peptides at lab-direct prices. <b>1 box is already wholesale</b> — bigger orders = better price. Every batch independently tested. Order in 30 seconds on WhatsApp.</p>
           <div class="hero-cta">
-            <a href="products.html" class="btn btn-primary btn-lg">🛒 Shop all products</a>
-            <a href="#bundles" class="btn btn-gold btn-lg">🎯 Shop curated stacks</a>
+            <a class="btn btn-wa btn-lg" id="heroWa" target="_blank" rel="noopener">💬 Contact Sales</a>
+            <a href="#trust" class="btn btn-ghost btn-lg">Learn our process</a>
           </div>
           <div class="hero-proof">
             <div class="proof-item"><div class="n">180+</div><div class="l">Products in stock</div></div>
             <div class="proof-item"><div class="n">38</div><div class="l">Countries served</div></div>
-            <div class="proof-item"><div class="n">95折</div><div class="l">New customer offer</div></div>
-            <div class="proof-item"><div class="n">$666+</div><div class="l">Free shipping</div></div>
+            <div class="proof-item"><div class="n">100%</div><div class="l">Batch tested</div></div>
+            <div class="proof-item"><div class="n">24/7</div><div class="l">WhatsApp support</div></div>
           </div>
         </div>
-        <div class="hero-card" id="flashCard">
-          <div class="title"><span>🏆 This week's top sellers</span></div>
-          <div id="flashList"><div class="muted small">Loading…</div></div>
-          <a class="all" href="products.html">See all products →</a>
+
+        <!-- 右侧：检测报告展示 -->
+        <div class="hcol hcol-right">
+          <div class="glass-panel">
+            <div class="panel-head">
+              <div class="ph-title"><span class="ph-ic">🧪</span> Quality Certification</div>
+              <div class="ph-sub">Independent lab verification</div>
+            </div>
+            <div class="certreel" id="certreel">
+              <div class="certreel-track" id="certreelTrack"><div class="muted small">Loading…</div></div>
+            </div>
+            <a class="btn btn-wa btn-block wa-cta" id="certCta" target="_blank" rel="noopener">
+              <span>📄 View More Testing Reports</span>
+            </a>
+          </div>
         </div>
+      </div>
+    </section>
+
+    <section id="trust" class="trust-strip">
+      <div class="wrap">
+        <div class="trust-item"><div class="ic">🔬</div><div><div class="t">3rd-Party COA Tested</div><div class="s">Batch reports on every lot</div></div></div>
+        <div class="trust-item"><div class="ic">📦</div><div><div class="t">Discreet Worldwide Shipping</div><div class="s">38 countries · tracking</div></div></div>
+        <div class="trust-item"><div class="ic">💬</div><div><div class="t">24/7 WhatsApp Support</div><div class="s">Reply within minutes</div></div></div>
+        <div class="trust-item"><div class="ic">🏷️</div><div><div class="t">1 Box = Wholesale Price</div><div class="s">Bigger orders = better price</div></div></div>
       </div>
     </section>
 
@@ -174,6 +211,7 @@
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
   <script src="js/page-index.js"></script>
+  <script src="js/home-showcase.js"></script>
   <script src="js/feedback-widget.js"></script>
 </body>
 </html>

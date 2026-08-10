@@ -89,6 +89,7 @@
     init() {
       PP.qsa("[data-nav='home']").forEach(a => a.classList.add("on"));
       renderTop(); renderCats(); renderBundles(); renderBest(); bindFAQ(); bindReseller();
+      if (window.Showcase) window.Showcase.init();
       document.addEventListener("pp:currency", () => { renderTop(); renderBundles(); renderBest(); });
     }
   };
