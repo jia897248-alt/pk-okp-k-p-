@@ -49,7 +49,7 @@
 
   function productCard(p) {
     return `<div class="show-card">
-      <div class="show-thumb"><img src="${p.img}" alt="${p.name}" loading="lazy"></div>
+      <div class="show-thumb"><img src="${p.img}" alt="${p.name}"></div>
       <div class="show-body">
         <div class="show-name">${p.name} <em class="kind">${p.kind === "video" ? "🎬" : "📷"}</em></div>
         <div class="show-spec">${p.spec}</div>
@@ -65,7 +65,7 @@
   function reportCard(r, i) {
     return `<div class="cert-card">
       <div class="cert-top"><div class="cert-ic">📄</div><span class="cert-type">${r.type}</span></div>
-      <div class="cert-img"><img src="${r.img}" alt="${r.type}" loading="lazy"></div>
+      <div class="cert-img"><img src="${r.img}" alt="${r.type}"></div>
       <div class="cert-method">${r.method}</div>
       <div class="cert-meta">
         <span>Batch <b>${r.batch}</b></span>
