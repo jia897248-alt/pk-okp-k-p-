@@ -37,8 +37,8 @@
   const qs = (s, r) => (r || document).querySelector(s);
   const qsa = (s, r) => Array.from((r || document).querySelectorAll(s));
   const money = v => v.toFixed(2);
-  const wa = msg => C.WA_BUSINESS;
-  const waText = msg => "https://wa.me/" + C.WHATSAPP + "?text=" + encodeURIComponent(msg);
+  const wa = msg => "https://wa.me/" + C.WHATSAPP + "?text=" + encodeURIComponent(msg);
+  const waText = msg => wa(msg);
 
   const addToCart = (id, qty) => {
     qty = Math.max(1, qty || 1);

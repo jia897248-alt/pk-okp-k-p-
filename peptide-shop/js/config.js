@@ -1,7 +1,7 @@
 window.CONFIG = {
   // ============ 真实号码（国际格式，去掉+号）============
-  WHATSAPP: "639606355653", // Rena Jin
-  WA_BUSINESS: "https://wa.me/message/4UPOPJQDFFMKO1", // 官方 click-to-chat 链接（不带 text 参数）
+  WHATSAPP: "639606355653", // Rena Jin（所有下单/咨询入口统一走此号码直接对话，不再经二维码）
+  WA_BUSINESS: "https://wa.me/message/4UPOPJQDFFMKO1", // 已废弃：wa.me/message 二维码链接易失效，改用 wa.me/号码?text= 直连
   EMAIL: "putraaudioppsn@gmail.com",
 
   // 定价口径：产品价格总表 6 个源取中间值(中位数) × 1.15 作为划线公示价，再立减 8.8% 作为成交价；
