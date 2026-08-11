@@ -415,4 +415,8 @@ table.compare tr:nth-child(even) td{background:rgba(255,255,255,.015)}
   .reseller-cta .btn{margin-left:0;width:100%}
   .toast-box{left:12px;right:12px}
   .toast{font-size:12px}
+  #compare .wrap{overflow-x:auto}
+  table.compare{min-width:520px}
+  .showreel,.certreel{height:360px}
+  .show-thumb{width:52px;height:78px}
 }
